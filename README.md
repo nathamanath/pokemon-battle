@@ -8,7 +8,7 @@ Given 2 teams of pokemon, the simulator will choose a build of 4 moves for each 
 The pokemon and moves are up to date to Gen VI thanks to the amazing database from https://github.com/veekun/pokedex.
 
 ## Online Version
-Check out an online version here:  
+Check out an online version here:
 https://pokemon-battle.herokuapp.com/
 
 
@@ -202,9 +202,23 @@ Exeggutor: 0 HP (0%) left.
 Arcanine: 30 HP (9%) left.
 ```
 
+### Choosing your Pokemon's Moves
+By default moves are selected for you, but you can select them manually by
+passing an object with a moves array, rather than a pokemin id:
+
+```coffee
+pokemon = require 'pokemon-battle'
+
+pokemon.build {id: 1, moves: [14, 15]}
+```
+
+* Invalid moves are filtered out.
+* Pokemon with no moves use struggle.
+* Up to 4 moves are allowed.
+* If more than 4 are provided, first 4 in array will be used.
 
 ### Checking a Pokemon's Moves
-You can also check which moves the simulator chose for a given pokemon.
+You can also check which moves the simulator chose for a given Pokemon.
 ```coffee
 pokemon = require 'pokemon-battle'
 
@@ -274,7 +288,7 @@ The following elements are still unsopported, but I'd like to include them in fu
 - Abilities
 - Held items
 - EVs
- 
+
 There are also many damaging moves which were not implemented due to having complex restrictions or side effects, such as Transform, Hidden Power, Synchronoise, Flying Press and multi-turn moves like Fly or Hyper Beam
 
 For a full list of these effects and their level of support, see the [list of move effects](https://github.com/fonse/pokemon-battle/blob/master/docs/effects.md).
