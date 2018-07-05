@@ -10,9 +10,6 @@ class Pokemon
     # Normalize input
     if pkm == parseInt(pkm, 10)
       pkm = {id: pkm}
-    else if pkm.moves
-      # TODO: validate pokemon can have move
-      pkm.moves = pkm.moves.map (id) -> new Move(id)
 
     id = pkm.id
 
@@ -45,7 +42,12 @@ class Pokemon
 
     # Either use provided moves, or generate moves
     if pkm.moves
-      @moves = pkm.moves
+      @moves =
+        pkm
+        .moves
+        .slice(0, Math.min(4, pkm.moves.length))
+        .filter (moveId) -> pokemon.moves.includes(moveId)
+        .map (id) -> new Move(id)
     else
       @moves = @strategy.chooseBuild (new Move moveId for moveId in pokemon.moves)
 
